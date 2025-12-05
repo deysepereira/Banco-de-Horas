@@ -21,206 +21,200 @@
                             navy: '#004080',
                             navyLight: '#00509d',
                             orange: '#FF7F00',
-                            bg: '#F3F4F6', // Cinza muito claro e limpo
+                            bg: '#F3F4F6',
                             surface: '#FFFFFF',
                             border: '#E5E7EB',
-                            textMain: '#111827', // Cinza quase preto
-                            textSec: '#6B7280' // Cinza médio
+                            textMain: '#111827',
+                            textSec: '#6B7280'
                         }
                     },
                     fontFamily: {
-                        sans: ['Roboto', 'sans-serif'], // Fonte única solicitada
+                        sans: ['Roboto', 'sans-serif'],
                     },
-                    borderRadius: {
-                        'DEFAULT': '4px', // Bordas mais quadradas (Corporate)
-                        'md': '6px',
-                        'lg': '8px'
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                        'nav': '0 -2px 10px rgba(0,0,0,0.03)'
                     }
                 }
             }
         }
     </script>
 
-    <!-- Fonte Roboto (Pesos: 300, 400, 500, 700) -->
+    <!-- Fonte Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Roboto', sans-serif; background-color: #F3F4F6; color: #111827; }
         
-        /* Utilitários Flat */
-        .card-flat {
-            background-color: white;
-            border: 1px solid #E5E7EB;
-            border-radius: 6px;
+        /* Utilitários */
+        .card {
+            background-color: white; border: 1px solid #E5E7EB; border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: all 0.2s;
+        }
+        
+        /* Botões */
+        .btn-primary {
+            background-color: #004080; color: white; border-radius: 6px; font-weight: 500;
+            padding: 12px; width: 100%; transition: background-color 0.2s;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .btn-primary:active { transform: scale(0.98); }
+        
+        .btn-secondary {
+            background-color: #FF7F00; color: white; border-radius: 6px; font-weight: 500;
+            padding: 12px; width: 100%; transition: background-color 0.2s;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
         }
 
-        /* Botões Flat */
-        .btn-flat-primary {
-            background-color: #004080; color: white;
-            border-radius: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;
-            transition: background-color 0.2s; border: none;
+        /* Inputs */
+        .input-field {
+            background-color: #F9FAFB; border: 1px solid #D1D5DB; border-radius: 6px;
+            padding: 10px 14px; width: 100%; outline: none; transition: border-color 0.2s;
         }
-        .btn-flat-primary:hover { background-color: #003366; }
-        .btn-flat-primary:active { background-color: #002244; }
+        .input-field:focus { border-color: #004080; background-color: white; }
 
-        .btn-flat-secondary {
-            background-color: #FF7F00; color: white;
-            border-radius: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;
-            transition: background-color 0.2s; border: none;
+        /* Navegação Híbrida (Tabs Desktop / Bottom Mobile) */
+        .nav-container {
+            position: fixed; bottom: 0; left: 0; right: 0; background: white;
+            border-top: 1px solid #E5E7EB; display: flex; justify-content: space-around;
+            padding: 8px 0; z-index: 50; box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
         }
-        .btn-flat-secondary:hover { background-color: #e67300; }
-
-        /* Inputs Flat Clean */
-        .input-clean {
-            background-color: #F9FAFB;
-            border: 1px solid #D1D5DB;
-            border-radius: 4px;
-            padding: 0.75rem;
-            color: #111827;
-            width: 100%;
-            outline: none;
-            transition: border-color 0.2s, background-color 0.2s;
-        }
-        .input-clean:focus {
-            border-color: #004080;
-            background-color: #FFFFFF;
+        @media (min-width: 768px) {
+            .nav-container {
+                position: sticky; top: 80px; border: none; background: transparent;
+                box-shadow: none; justify-content: flex-start; gap: 10px; padding: 0 0 20px 0;
+            }
         }
 
-        /* Sidebar Navigation Clean */
-        .nav-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px 24px; color: #9CA3AF;
-            text-decoration: none; transition: all 0.2s;
-            border-left: 3px solid transparent; cursor: pointer;
-            font-size: 0.9rem; font-weight: 500;
+        .nav-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #9CA3AF; padding: 8px; border-radius: 8px; cursor: pointer; flex: 1;
+            transition: all 0.2s; max-width: 100px;
         }
-        .nav-item:hover { color: #FFFFFF; background-color: rgba(255,255,255,0.05); }
-        .nav-item.active {
-            color: #FFFFFF; background-color: rgba(0,0,0,0.2);
-            border-left-color: #FF7F00;
+        @media (min-width: 768px) {
+            .nav-btn {
+                flex-direction: row; gap: 8px; background: white; border: 1px solid #E5E7EB;
+                max-width: none; padding: 12px 24px; flex: 0 1 auto;
+            }
         }
 
-        /* Timeline Minimalista */
-        .timeline-clean-item {
-            padding-left: 20px; padding-bottom: 24px;
-            border-left: 1px solid #E5E7EB; position: relative;
+        .nav-btn.active { color: #004080; }
+        .nav-btn.active i { transform: translateY(-2px); }
+        @media (min-width: 768px) {
+            .nav-btn.active {
+                background-color: #004080; color: white; border-color: #004080;
+                box-shadow: 0 4px 6px rgba(0,64,128,0.2);
+            }
+            .nav-btn.active i { color: #FF7F00; transform: none; }
         }
-        .timeline-clean-item:last-child { border-left: 1px solid transparent; }
-        .timeline-clean-dot {
-            position: absolute; left: -5px; top: 6px;
-            width: 9px; height: 9px; border-radius: 50%;
-            background-color: white; border: 2px solid #9CA3AF;
-        }
-        .timeline-clean-item.work .timeline-clean-dot { border-color: #004080; background-color: #004080; }
-        .timeline-clean-item.abono .timeline-clean-dot { border-color: #FF7F00; background-color: #FF7F00; }
 
-        /* Loading & Toast */
+        .nav-icon { font-size: 1.2rem; margin-bottom: 4px; transition: transform 0.2s; }
+        @media (min-width: 768px) { .nav-icon { margin-bottom: 0; font-size: 1rem; } }
+        
+        .nav-text { font-size: 0.7rem; font-weight: 500; }
+        @media (min-width: 768px) { .nav-text { font-size: 0.9rem; } }
+
+        /* Ajuste Main para Bottom Bar */
+        main { padding-bottom: 80px; }
+        @media (min-width: 768px) { main { padding-bottom: 20px; } }
+
+        /* Timeline */
+        .timeline-row {
+            display: flex; align-items: center; padding: 16px; border-bottom: 1px solid #F3F4F6;
+        }
+        .timeline-row:last-child { border-bottom: none; }
+        
+        /* Overlays */
         #loading-overlay {
-            position: fixed; inset: 0; background-color: white; z-index: 9999;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            position: fixed; inset: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px);
+            z-index: 100; display: flex; justify-content: center; align-items: center; flex-direction: column;
         }
-        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; }
+        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 110; display: flex; flex-direction: column; gap: 10px; }
         .toast {
-            background: #1F2937; color: white; padding: 12px 20px; border-radius: 4px; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 10px; animation: fadeIn 0.3s;
+            background: white; border-left: 4px solid; padding: 16px; border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 12px;
+            animation: slideIn 0.3s ease-out; min-width: 300px;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Mobile Nav */
-        .mobile-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
-            background: white; border-top: 1px solid #E5E7EB;
-            display: flex; justify-content: space-around; align-items: center; z-index: 50;
-        }
-        .mobile-link {
-            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100%; color: #6B7280; font-size: 0.7rem; gap: 4px;
-        }
-        .mobile-link.active { color: #004080; font-weight: bold; background-color: #F3F4F6; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden text-sm md:text-base">
+<body class="bg-brand-bg text-brand-textMain">
 
     <!-- Loading -->
     <div id="loading-overlay">
-        <div class="animate-spin rounded-full h-8 w-8 border-2 border-brand-navy border-t-transparent mb-3"></div>
-        <p class="text-brand-navy font-bold tracking-wider text-xs uppercase">Carregando Sistema</p>
+        <div class="w-12 h-12 border-4 border-brand-bg border-t-brand-navy rounded-full animate-spin mb-4"></div>
+        <p class="text-brand-navy font-bold tracking-wider text-sm uppercase">Banco de Horas Evereste</p>
     </div>
 
-    <!-- Toast -->
+    <!-- Toast Notifications -->
     <div id="toast-container"></div>
 
-    <!-- SIDEBAR (Desktop) -->
-    <aside class="hidden md:flex w-64 flex-col bg-brand-navy h-full z-20">
-        <!-- Logo Area -->
-        <div class="h-16 flex items-center px-6 border-b border-white/10 bg-brand-navyLight">
-            <i class="fa-solid fa-mountain-sun text-brand-orange text-xl mr-3"></i>
-            <div>
-                <h1 class="font-bold text-white text-sm tracking-tight leading-tight">Banco de Horas<br>Evereste</h1>
+    <!-- TELA LOGIN -->
+    <section id="login-screen" class="hidden fixed inset-0 bg-brand-bg z-50 flex flex-col items-center justify-center p-6">
+        <div class="w-full max-w-md bg-white rounded-lg shadow-lg border border-brand-border p-8">
+            <div class="text-center mb-8">
+                <i class="fa-solid fa-mountain-sun text-brand-orange text-5xl mb-4"></i>
+                <h1 class="text-2xl font-bold text-brand-navy">Portal do Colaborador</h1>
+                <p class="text-gray-500 text-sm mt-2">Instituto Evereste</p>
             </div>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Email</label>
+                    <input type="email" id="login-email" class="input-field" placeholder="seu.email@evereste.com" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Senha</label>
+                    <input type="password" id="login-password" class="input-field" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary py-3 shadow-md hover:shadow-lg">
+                    Entrar no Sistema
+                </button>
+            </form>
+            <p class="text-center text-xs text-gray-400 mt-6">Acesso restrito a colaboradores autorizados.</p>
         </div>
+    </section>
 
-        <!-- User Profile Minimal -->
-        <div class="p-6 border-b border-white/10">
-            <p class="text-xs text-brand-orange font-bold uppercase mb-1">Colaborador</p>
-            <h2 class="text-white font-medium truncate" id="sidebar-user-name">Carregando...</h2>
-            <div class="mt-2 flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-green-500"></div>
-                <span class="text-xs text-white/60">Online</span>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <nav class="flex-1 py-4">
-            <a onclick="switchTab('dashboard')" class="nav-item active" id="desk-dashboard">
-                <i class="fa-solid fa-chart-line w-5 text-center"></i> Visão Geral
-            </a>
-            <a onclick="switchTab('registro')" class="nav-item" id="desk-registro">
-                <i class="fa-solid fa-clock w-5 text-center"></i> Registar Ponto
-            </a>
-            <a onclick="switchTab('solicitacoes')" class="nav-item" id="desk-solicitacoes">
-                <i class="fa-solid fa-envelope w-5 text-center"></i> Solicitações
-            </a>
-            <div class="mt-6 mb-2 px-6 text-[10px] font-bold text-white/40 uppercase">Administração</div>
-            <a onclick="switchTab('gestao')" class="nav-item" id="desk-gestao">
-                <i class="fa-solid fa-shield-halved w-5 text-center"></i> Gestão
-            </a>
-        </nav>
-
-        <!-- Footer -->
-        <div class="p-4 text-center">
-            <p class="text-[10px] text-white/30">v2.6.0 &copy; 2024</p>
-        </div>
-    </aside>
-
-    <!-- MAIN AREA -->
-    <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-brand-bg">
-        
-        <!-- Header Clean -->
-        <header class="h-16 bg-white border-b border-brand-border flex items-center justify-between px-6 z-10">
-            <!-- Mobile Brand -->
-            <div class="md:hidden flex items-center gap-2">
-                <i class="fa-solid fa-mountain-sun text-brand-orange text-lg"></i>
-                <span class="font-bold text-brand-navy text-sm">Banco de Horas Evereste</span>
-            </div>
-
-            <!-- Desktop Title (Breadcrumb style) -->
-            <div class="hidden md:flex items-center text-brand-textSec text-sm">
-                <span class="font-medium text-brand-navy">Portal do Colaborador</span>
-                <span class="mx-2">/</span>
-                <span id="page-title" class="text-brand-textMain">Dashboard</span>
-            </div>
-
-            <!-- Global Selector (Clean) -->
+    <!-- HEADER (Fixo no Topo) -->
+    <header class="bg-white border-b border-brand-border sticky top-0 z-40 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <label class="hidden md:block text-xs font-bold text-brand-textSec uppercase">Perfil:</label>
-                <div class="relative">
-                    <select id="global-user-select" class="appearance-none bg-gray-50 border border-brand-border rounded text-sm py-1.5 pl-3 pr-8 focus:border-brand-navy focus:ring-0 cursor-pointer text-brand-textMain font-medium">
+                <div class="bg-brand-navy text-white w-9 h-9 rounded flex items-center justify-center">
+                    <i class="fa-solid fa-mountain-sun text-brand-orange text-sm"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-brand-navy text-sm leading-tight">Banco de Horas</h1>
+                    <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Evereste</p>
+                </div>
+            </div>
+
+            <!-- Perfil & Logout -->
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Logado como</p>
+                    <p id="header-user-name" class="text-sm font-bold text-brand-navy truncate max-w-[120px]">...</p>
+                </div>
+                <button onclick="handleLogout()" class="text-gray-400 hover:text-red-500 transition-colors p-2">
+                    <i class="fa-solid fa-right-from-bracket text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div id="app-content" class="hidden">
+        <div class="max-w-5xl mx-auto px-4 py-6">
+
+            <!-- Seletor de Perfil (Para Demo/Testes) -->
+            <div class="card p-4 mb-6 border-l-4 border-brand-navy flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="w-full">
+                    <label class="text-[10px] text-gray-400 font-bold uppercase mb-1 block">Simular Perfil:</label>
+                    <select id="global-user-select" class="input-field cursor-pointer font-medium text-brand-textMain">
                         <optgroup label="Gestão">
                             <option value="Bruno Diogo">Bruno Diogo</option>
                             <option value="Deyse Pereira">Deyse Pereira</option>
                         </optgroup>
-                        <optgroup label="Equipa">
+                        <optgroup label="Colaboradores">
                             <option value="Vinicius Sena" selected>Vinicius Sena</option>
                             <option value="Keven Menezes">Keven Menezes</option>
                             <option value="Marllon Costa">Marllon Costa</option>
@@ -228,272 +222,241 @@
                             <option value="Vera Nascimento">Vera Nascimento</option>
                         </optgroup>
                     </select>
-                    <i class="fa-solid fa-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                </div>
+                <div class="w-full md:w-auto">
+                    <span id="role-badge" class="block w-full text-center md:inline-block px-4 py-2 rounded bg-blue-50 text-brand-navy text-xs font-bold border border-blue-100">
+                        <i class="fa-solid fa-user-shield mr-1"></i> <span id="role-text">Colaborador</span>
+                    </span>
                 </div>
             </div>
-        </header>
 
-        <!-- Content Area -->
-        <div class="flex-1 overflow-y-auto p-4 md:p-8 pb-20 md:pb-8">
-            
-            <!-- DASHBOARD VIEW -->
-            <section id="view-dashboard" class="max-w-5xl mx-auto animate-fade">
-                <!-- KPI Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <!-- Saldo -->
-                    <div class="card-flat p-5 flex flex-col justify-between h-32">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-xs font-bold text-gray-400 uppercase">Saldo de Horas Extras</p>
-                                <h3 id="dash-saldo" class="text-3xl font-bold text-brand-navy mt-1">--:--</h3>
-                            </div>
-                            <div class="w-8 h-8 rounded bg-blue-50 text-brand-navy flex items-center justify-center">
-                                <i class="fa-solid fa-wallet"></i>
-                            </div>
-                        </div>
-                        <div id="dash-status-indicator" class="text-xs font-medium text-gray-500">
-                            Apenas horas fora do expediente
-                        </div>
-                    </div>
-
-                    <!-- Cargo -->
-                    <div class="card-flat p-5 flex flex-col justify-between h-32">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-xs font-bold text-gray-400 uppercase">Função no Sistema</p>
-                                <h3 id="dash-cargo" class="text-lg font-bold text-gray-800 mt-1">Colaborador</h3>
-                            </div>
-                            <div class="w-8 h-8 rounded bg-orange-50 text-brand-orange flex items-center justify-center">
-                                <i class="fa-solid fa-id-badge"></i>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-400">Permissões configuradas</p>
-                    </div>
-
-                    <!-- Action Button -->
-                    <button onclick="switchTab('registro')" class="bg-brand-navy hover:bg-brand-navyLight text-white rounded p-5 flex flex-col justify-center items-center h-32 transition-colors group">
-                        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-plus text-lg"></i>
-                        </div>
-                        <span class="font-bold text-sm uppercase tracking-wide">Novo Registo</span>
-                    </button>
+            <!-- Navegação (Abas Desktop / Bottom Mobile) -->
+            <nav class="nav-container">
+                <div class="nav-btn active" onclick="switchTab('dashboard')" id="nav-dashboard">
+                    <i class="fa-solid fa-chart-pie nav-icon"></i>
+                    <span class="nav-text">Painel</span>
                 </div>
-
-                <!-- Main Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Timeline Column -->
-                    <div class="lg:col-span-2 card-flat p-6">
-                        <div class="flex items-center justify-between mb-6 pb-2 border-b border-gray-100">
-                            <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wide">Extrato de Atividades</h3>
-                            <span class="text-xs text-gray-400">Recente</span>
-                        </div>
-                        <div id="timeline-container" class="pr-2">
-                            <!-- JS Content -->
-                        </div>
-                    </div>
-
-                    <!-- Info Column -->
-                    <div class="lg:col-span-1 space-y-4">
-                        <div class="card-flat p-5 bg-white">
-                            <h4 class="font-bold text-gray-800 text-xs uppercase mb-3 border-b pb-2">Regras de Expediente</h4>
-                            <ul class="text-xs text-gray-600 space-y-3">
-                                <li class="flex items-start gap-2">
-                                    <i class="fa-solid fa-business-time text-brand-orange mt-0.5"></i>
-                                    <span><strong>Seg-Sex:</strong> Horário normal das 07:00 às 17:00. O Banco contabiliza apenas o que exceder este período.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <i class="fa-solid fa-calendar-day text-brand-orange mt-0.5"></i>
-                                    <span><strong>Sáb-Dom:</strong> Todo o tempo trabalhado é contabilizado como Hora Extra (+ Bónus Domingo).</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-flat p-5 bg-blue-50 border-blue-100">
-                            <h4 class="font-bold text-brand-navy text-xs uppercase mb-2">Suporte</h4>
-                            <p class="text-xs text-blue-800 mb-3">Dúvidas sobre o cálculo? Contate a gestão.</p>
-                            <a href="#" class="text-xs font-bold text-brand-navy hover:underline">Contatar Supervisão &rarr;</a>
-                        </div>
-                    </div>
+                <div class="nav-btn" onclick="switchTab('registro')" id="nav-registro">
+                    <i class="fa-solid fa-clock nav-icon"></i>
+                    <span class="nav-text">Ponto</span>
                 </div>
-            </section>
+                <div class="nav-btn" onclick="switchTab('solicitacoes')" id="nav-solicitacoes">
+                    <i class="fa-solid fa-file-signature nav-icon"></i>
+                    <span class="nav-text">Abono</span>
+                </div>
+                <div class="nav-btn" onclick="switchTab('gestao')" id="nav-gestao">
+                    <i class="fa-solid fa-users-gear nav-icon"></i>
+                    <span class="nav-text">Gestão</span>
+                </div>
+            </nav>
 
-            <!-- REGISTRO VIEW -->
-            <section id="view-registro" class="max-w-2xl mx-auto hidden animate-fade">
-                <div class="card-flat overflow-hidden">
-                    <div class="bg-gray-50 p-4 border-b border-gray-200 flex justify-between items-center">
-                        <h3 class="font-bold text-gray-700 text-sm uppercase">Registar Ponto</h3>
-                        <span class="text-xs text-gray-400" id="reg-date-display">Hoje</span>
-                    </div>
-                    
-                    <form onsubmit="handleRegistro(event)" class="p-6 md:p-8 space-y-5">
-                        <input type="text" id="reg-nome" class="hidden">
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Data</label>
-                                <input type="date" id="reg-data" required class="input-clean">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Área</label>
-                                <div class="relative">
-                                    <select id="reg-area" class="input-clean appearance-none bg-white">
-                                        <option value="TI">TI / Desenvolvimento</option>
-                                        <option value="Administrativo">Administrativo</option>
-                                        <option value="Projetos">Projetos</option>
-                                        <option value="Engenharia">Engenharia</option>
-                                    </select>
-                                    <i class="fa-solid fa-chevron-down absolute right-3 top-3 text-gray-400 text-xs pointer-events-none"></i>
+            <main>
+                <!-- VIEW: DASHBOARD -->
+                <section id="view-dashboard" class="animate-fade">
+                    <!-- Cards de Saldo -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="card p-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white border-none shadow-lg relative overflow-hidden">
+                            <div class="relative z-10">
+                                <p class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1">Saldo de Horas Extras</p>
+                                <h2 id="dash-saldo" class="text-4xl font-bold my-2">--:--</h2>
+                                <div id="dash-status" class="inline-block px-2 py-1 rounded bg-white/20 text-[10px] font-bold uppercase backdrop-blur-sm">
+                                    Calculando...
                                 </div>
                             </div>
+                            <i class="fa-solid fa-stopwatch absolute -bottom-4 -right-4 text-8xl text-white opacity-10"></i>
                         </div>
 
-                        <div class="p-4 border border-gray-200 rounded bg-gray-50 flex items-end gap-4">
-                            <div class="flex-1">
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Entrada</label>
-                                <input type="time" id="reg-entrada" required class="input-clean text-center font-mono font-bold">
-                            </div>
-                            <div class="pb-3 text-gray-300"><i class="fa-solid fa-arrow-right"></i></div>
-                            <div class="flex-1">
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Saída</label>
-                                <input type="time" id="reg-saida" required class="input-clean text-center font-mono font-bold">
-                            </div>
+                        <div class="card p-6 flex flex-col justify-center items-start border-l-4 border-l-brand-orange">
+                            <h3 class="font-bold text-brand-navy text-lg mb-2">Regras de Expediente</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-business-time text-brand-orange"></i> <span>Seg-Sex: Apenas fora de 07:00-17:00</span></li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-calendar-week text-brand-orange"></i> <span>Dom: Bônus de 24min/hora</span></li>
+                            </ul>
                         </div>
+                    </div>
 
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Observações</label>
-                            <textarea id="reg-obs" rows="2" class="input-clean resize-none" placeholder="Opcional..."></textarea>
+                    <!-- Timeline -->
+                    <div class="card">
+                        <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-lg">
+                            <h3 class="font-bold text-brand-navy text-sm uppercase">Extrato Recente</h3>
+                            <span class="text-xs text-gray-400">Últimos 30 dias</span>
+                        </div>
+                        <div id="timeline-body">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: REGISTRO -->
+                <section id="view-registro" class="hidden animate-fade">
+                    <div class="card max-w-2xl mx-auto">
+                        <div class="p-6 border-b border-gray-100 text-center">
+                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-3 text-brand-navy">
+                                <i class="fa-solid fa-pen-to-square text-xl"></i>
+                            </div>
+                            <h2 class="font-bold text-lg text-brand-textMain">Novo Registro</h2>
+                            <p class="text-xs text-gray-500">Lance suas horas trabalhadas fora do expediente.</p>
                         </div>
                         
-                        <div class="text-[11px] text-gray-500 bg-blue-50 p-2 rounded border border-blue-100 flex items-center gap-2">
-                            <i class="fa-solid fa-circle-info text-brand-navy"></i>
-                            <span>Atenção: Apenas horas fora de 07:00-17:00 (Seg-Sex) gerarão saldo.</span>
-                        </div>
+                        <form onsubmit="handleRegistro(event)" class="p-6 space-y-6">
+                            <input type="text" id="reg-nome" class="hidden">
 
-                        <div class="pt-2">
-                            <button type="submit" class="btn-flat-primary w-full py-3">Confirmar Lançamento</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Data</label>
+                                    <input type="date" id="reg-data" required class="input-field">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Atividade</label>
+                                    <select id="reg-area" class="input-field bg-white">
+                                        <option value="TI">Cobertura Audiovisual</option>
+                                        <option value="Administrativo">Apoio Cerimonial e Eventos</option>
+                                        <option value="Projetos">Postagens Redes e Portal</option>
+                                        <option value="Engenharia">Criação de Material audiovisual</option>
+                                    </select>
+                                </div>
+                            </div>
 
-            <!-- SOLICITACOES VIEW -->
-            <section id="view-solicitacoes" class="max-w-5xl mx-auto hidden animate-fade">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <!-- Form -->
-                    <div class="md:col-span-5">
-                        <div class="card-flat p-6">
-                            <h3 class="font-bold text-gray-700 text-sm uppercase mb-5 border-b pb-2">Nova Solicitação</h3>
+                            <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                                <p class="text-center text-[10px] font-bold text-brand-navy uppercase mb-3">Horário Realizado</p>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-1">
+                                        <label class="block text-[10px] text-gray-400 font-bold mb-1 text-center">Início</label>
+                                        <input type="time" id="reg-entrada" required class="input-field text-center font-mono font-bold text-lg">
+                                    </div>
+                                    <i class="fa-solid fa-arrow-right text-gray-300 mt-4"></i>
+                                    <div class="flex-1">
+                                        <label class="block text-[10px] text-gray-400 font-bold mb-1 text-center">Fim</label>
+                                        <input type="time" id="reg-saida" required class="input-field text-center font-mono font-bold text-lg">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Observações</label>
+                                <textarea id="reg-obs" rows="2" class="input-field resize-none" placeholder="Motivo do trabalho extra..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary shadow-md">
+                                <i class="fa-solid fa-check"></i> Salvar Registro
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- VIEW: SOLICITACOES -->
+                <section id="view-solicitacoes" class="hidden animate-fade">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card p-6 h-fit">
+                            <h3 class="font-bold text-brand-navy text-lg mb-4 border-b border-gray-100 pb-2">Nova Solicitação</h3>
                             <form onsubmit="handleSolicitacao(event)" class="space-y-4">
                                 <input type="text" id="abono-nome" class="hidden">
                                 
                                 <div>
                                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Data</label>
-                                    <input type="date" id="abono-data" required class="input-clean">
+                                    <input type="date" id="abono-data" required class="input-field">
                                 </div>
                                 
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Qtd. Horas</label>
-                                    <input type="time" id="abono-horas" required class="input-clean">
+                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Total de Horas</label>
+                                    <input type="time" id="abono-horas" required class="input-field">
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Justificativa</label>
-                                    <textarea id="abono-motivo" rows="3" required class="input-clean" placeholder="Motivo..."></textarea>
+                                    <textarea id="abono-motivo" rows="3" required class="input-field" placeholder="Ex: Consulta médica..."></textarea>
                                 </div>
 
-                                <button type="submit" class="btn-flat-secondary w-full py-3">Enviar</button>
+                                <button type="submit" class="btn-secondary shadow-md">
+                                    <i class="fa-regular fa-paper-plane"></i> Enviar Pedido
+                                </button>
                             </form>
                         </div>
-                    </div>
 
-                    <!-- List -->
-                    <div class="md:col-span-7">
-                        <div class="card-flat p-6 min-h-full">
-                            <h3 class="font-bold text-gray-700 text-sm uppercase mb-5">Histórico de Pedidos</h3>
-                            <div id="user-solicitacoes-list" class="space-y-3">
+                        <div class="card h-fit">
+                            <div class="p-4 border-b border-gray-100 bg-gray-50 rounded-t-lg">
+                                <h3 class="font-bold text-gray-700 text-sm">Meus Pedidos</h3>
+                            </div>
+                            <div id="user-solicitacoes-list" class="p-2 space-y-2">
                                 <!-- JS -->
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- GESTAO VIEW -->
-            <section id="view-gestao" class="max-w-6xl mx-auto hidden animate-fade">
-                <!-- Alert Banner -->
-                <div id="gestao-banner" class="mb-6 p-4 rounded text-sm text-center border font-medium">
-                    Verificando acesso...
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Ranking Table -->
-                    <div class="card-flat overflow-hidden">
-                        <div class="bg-gray-50 p-4 border-b border-gray-200 flex justify-between items-center">
-                            <h3 class="font-bold text-gray-700 text-sm uppercase">Ranking de Saldo</h3>
-                            <button onclick="renderRanking()" class="text-xs text-brand-navy hover:underline font-bold">Atualizar</button>
-                        </div>
-                        <table class="w-full text-sm">
-                            <thead class="bg-white text-gray-400 text-[10px] uppercase font-bold border-b">
-                                <tr>
-                                    <th class="py-3 px-4 text-left">#</th>
-                                    <th class="py-3 px-4 text-left">Colaborador</th>
-                                    <th class="py-3 px-4 text-right">Saldo</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ranking-body"></tbody>
-                        </table>
+                <!-- VIEW: GESTAO -->
+                <section id="view-gestao" class="hidden animate-fade">
+                    <!-- Banner de Acesso -->
+                    <div id="gestao-alert" class="mb-6 p-4 rounded border text-sm text-center font-medium">
+                        Verificando...
                     </div>
 
-                    <!-- Approvals List -->
-                    <div class="card-flat p-6">
-                        <h3 class="font-bold text-gray-700 text-sm uppercase mb-4">Pendências de Aprovação</h3>
-                        <div id="lista-aprovacoes" class="space-y-4">
-                            <!-- JS -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Ranking -->
+                        <div class="card overflow-hidden h-fit">
+                            <div class="p-4 bg-brand-navy text-white flex justify-between items-center">
+                                <h3 class="font-bold text-sm uppercase">Ranking de Saldo</h3>
+                                <button onclick="renderRanking()" class="text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded">Atualizar</button>
+                            </div>
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-50 text-gray-500 text-[10px] uppercase font-bold border-b">
+                                    <tr>
+                                        <th class="py-3 px-4 text-left">#</th>
+                                        <th class="py-3 px-4 text-left">Nome</th>
+                                        <th class="py-3 px-4 text-right">Saldo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ranking-body"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Aprovações -->
+                        <div class="card h-fit">
+                            <div class="p-4 border-b border-gray-100 bg-orange-50 rounded-t-lg flex justify-between items-center">
+                                <h3 class="font-bold text-brand-orange text-sm uppercase">
+                                    <i class="fa-solid fa-clipboard-check mr-1"></i> Pendências
+                                </h3>
+                            </div>
+                            <div id="lista-aprovacoes" class="p-4 space-y-3">
+                                <!-- JS -->
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
+                </section>
+            </main>
         </div>
-    </main>
+    </div>
 
-    <!-- MOBILE NAV -->
-    <nav class="mobile-bar md:hidden">
-        <a onclick="switchTab('dashboard')" class="mobile-link active" id="mob-dashboard">
-            <i class="fa-solid fa-chart-line text-lg"></i>
-            <span>Painel</span>
-        </a>
-        <a onclick="switchTab('registro')" class="mobile-link" id="mob-registro">
-            <i class="fa-solid fa-circle-plus text-lg"></i>
-            <span>Ponto</span>
-        </a>
-        <a onclick="switchTab('solicitacoes')" class="mobile-link" id="mob-solicitacoes">
-            <i class="fa-solid fa-file-signature text-lg"></i>
-            <span>Abono</span>
-        </a>
-        <a onclick="switchTab('gestao')" class="mobile-link" id="mob-gestao">
-            <i class="fa-solid fa-shield-halved text-lg"></i>
-            <span>Gestão</span>
-        </a>
-    </nav>
-
-    <!-- Scripts (Lógica Atualizada para Expediente 07-17) -->
+    <!-- Scripts (Funcionalidade Mantida e Chaves Inseridas) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        let firebaseConfig;
-        try {
-            const rawConfig = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-            firebaseConfig = rawConfig ? JSON.parse(rawConfig) : JSON.parse(new URLSearchParams(window.location.search).get('__firebase_config') || '{}');
-        } catch (e) { console.error(e); }
+        // Configuração de Fallback com as Chaves do Usuário
+        const fallbackConfig = {
+          apiKey: "AIzaSyAOJ0ca2hpVmFX61aq0asYliQld7t1enNE",
+          authDomain: "banco-de-horas-846f7.firebaseapp.com",
+          projectId: "banco-de-horas-846f7",
+          storageBucket: "banco-de-horas-846f7.firebasestorage.app",
+          messagingSenderId: "445693207380",
+          appId: "1:445693207380:web:14d35b3a53f21a8cc65ec1"
+        };
 
-        if (!firebaseConfig?.apiKey) throw new Error("No Config");
+        // Lógica de Seleção de Configuração
+        let firebaseConfig;
+        if (typeof __firebase_config !== 'undefined') {
+            firebaseConfig = JSON.parse(__firebase_config);
+        } else {
+            firebaseConfig = fallbackConfig;
+        }
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app';
+        
+        // AppId preferencialmente do ambiente, senão usa um padrão
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'banco-horas-evereste-v1';
 
         const state = {
             currentUser: null,
@@ -503,15 +466,17 @@
             isManager: false
         };
 
-        // Helpers
+        // --- UX Helpers ---
         window.showToast = (msg, type = 'info') => {
             const el = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.style.borderLeft = type === 'error' ? '4px solid #EF4444' : '4px solid #FF7F00';
-            toast.innerHTML = type === 'error' ? `<i class="fa-solid fa-circle-xmark text-red-400"></i> ${msg}` : `<i class="fa-solid fa-circle-check text-green-400"></i> ${msg}`;
+            const color = type === 'error' ? 'border-red-500 text-red-600' : 'border-green-500 text-green-700';
+            const icon = type === 'error' ? 'fa-circle-xmark' : 'fa-circle-check';
+            
+            toast.className = `toast ${color}`;
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span class="font-medium text-sm">${msg}</span>`;
             el.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            setTimeout(() => toast.remove(), 3500);
         };
 
         function minsToTime(m) {
@@ -520,19 +485,42 @@
         }
         function timeToMins(t) { const [h,m] = t.split(':').map(Number); return h*60+m; }
 
-        // Logic
+        // --- Core ---
         async function init() {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
-            else await signInAnonymously(auth);
+            try {
+                let authenticated = false;
 
-            onAuthStateChanged(auth, user => {
-                if(user) {
-                    state.currentUser = user;
-                    document.getElementById('loading-overlay').style.display = 'none';
-                    setupListeners();
-                    updateUI();
+                // Tenta autenticação via token injetado (Ambiente Imersivo)
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    try {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                        authenticated = true;
+                    } catch (e) {
+                        console.warn("Token mismatch, fallback para anônimo.");
+                    }
                 }
-            });
+
+                // Se não autenticou via token, ou se o token falhou, usa anônimo
+                if (!authenticated) {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, user => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    if(user) {
+                        state.currentUser = user;
+                        document.getElementById('login-screen').classList.remove('hidden');
+                    } else {
+                        document.getElementById('login-screen').classList.remove('hidden');
+                    }
+                });
+            } catch(e) { 
+                console.error(e);
+                document.getElementById('loading-overlay').style.display = 'none';
+                showToast("Erro crítico de autenticação. Recarregue.", "error");
+                // Fallback UI
+                document.getElementById('login-screen').classList.remove('hidden');
+            }
 
             document.getElementById('global-user-select').addEventListener('change', (e) => {
                 state.selectedProfile = e.target.value;
@@ -544,16 +532,57 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('reg-data').value = today;
             document.getElementById('abono-data').value = today;
-            document.getElementById('reg-date-display').textContent = new Date().toLocaleDateString('pt-PT');
         }
 
+        // --- Login ---
+        window.handleLogin = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.toLowerCase();
+            const pass = document.getElementById('login-password').value;
+            
+            if(pass.length < 3) return showToast("Senha inválida", "error");
+
+            document.getElementById('loading-overlay').style.display = 'flex';
+
+            // Simulação de Identificação
+            const select = document.getElementById('global-user-select');
+            if(email.includes('bruno')) { select.value = 'Bruno Diogo'; }
+            else if(email.includes('vinicius')) { select.value = 'Vinicius Sena'; }
+            else { select.value = 'Vinicius Sena'; } // Default
+
+            state.selectedProfile = select.value;
+            
+            // Iniciar ouvintes apenas agora
+            setupListeners();
+            updateUI();
+
+            setTimeout(() => {
+                document.getElementById('loading-overlay').style.display = 'none';
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('app-content').classList.remove('hidden');
+                switchTab('dashboard');
+                showToast(`Bem-vindo, ${state.selectedProfile}`);
+            }, 800);
+        };
+
+        window.handleLogout = () => {
+            document.getElementById('app-content').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+        };
+
+        // --- Data Logic ---
         function setupListeners() {
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'jornadas'), s => {
+            const qJornadas = collection(db, 'artifacts', appId, 'public', 'data', 'jornadas');
+            const qSolic = collection(db, 'artifacts', appId, 'public', 'data', 'solicitacoes_abono');
+
+            onSnapshot(qJornadas, s => {
                 state.jornadas = s.docs.map(d => ({id:d.id, ...d.data()}));
                 renderDashboard();
                 renderRanking();
             });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'solicitacoes_abono'), s => {
+            onSnapshot(qSolic, s => {
                 state.solicitacoes = s.docs.map(d => ({id:d.id, ...d.data()}));
                 renderSolicitacoes();
                 renderApprovals();
@@ -564,63 +593,138 @@
             const user = state.selectedProfile;
             state.isManager = ['Bruno Diogo', 'Deyse Pereira'].includes(user);
 
-            document.getElementById('sidebar-user-name').textContent = user;
+            document.getElementById('header-user-name').textContent = user;
             document.getElementById('reg-nome').value = user;
             document.getElementById('abono-nome').value = user;
             
-            document.getElementById('dash-cargo').textContent = state.isManager ? 'Supervisor' : 'Colaborador';
+            const roleText = state.isManager ? 'Gestor' : 'Colaborador';
+            document.getElementById('role-text').textContent = roleText;
             
-            const banner = document.getElementById('gestao-banner');
+            const badge = document.getElementById('role-badge');
             if(state.isManager) {
-                banner.className = "mb-6 bg-green-50 border border-green-200 text-green-800 p-3 rounded text-sm text-center";
-                banner.innerHTML = `<i class="fa-solid fa-lock-open mr-2"></i> Acesso concedido.`;
+                badge.className = "block w-full text-center md:inline-block px-4 py-2 rounded bg-green-50 text-green-700 text-xs font-bold border border-green-100";
+                badge.innerHTML = `<i class="fa-solid fa-user-shield mr-1"></i> Gestor`;
             } else {
-                banner.className = "mb-6 bg-red-50 border border-red-200 text-red-800 p-3 rounded text-sm text-center";
-                banner.innerHTML = `<i class="fa-solid fa-lock mr-2"></i> Acesso restrito (Leitura).`;
+                badge.className = "block w-full text-center md:inline-block px-4 py-2 rounded bg-blue-50 text-brand-navy text-xs font-bold border border-blue-100";
+                badge.innerHTML = `<i class="fa-solid fa-user mr-1"></i> Colaborador`;
+            }
+
+            const alert = document.getElementById('gestao-alert');
+            if(state.isManager) {
+                alert.className = "mb-6 p-4 rounded border border-green-200 bg-green-50 text-green-800 text-sm text-center font-bold";
+                alert.innerHTML = "Acesso de Gestor Confirmado";
+            } else {
+                alert.className = "mb-6 p-4 rounded border border-red-200 bg-red-50 text-red-800 text-sm text-center";
+                alert.innerHTML = "Acesso Restrito (Apenas Visualização)";
             }
         }
 
+        // --- Render Views ---
         function renderDashboard() {
-            const myData = state.jornadas.filter(j => j.nome === state.selectedProfile).sort((a,b) => new Date(b.data) - new Date(a.data));
-            const total = myData.reduce((acc, cur) => acc + cur.saldoMinutos, 0);
+            const list = state.jornadas.filter(j => j.nome === state.selectedProfile).sort((a,b) => new Date(b.data) - new Date(a.data));
+            const total = list.reduce((acc, cur) => acc + cur.saldoMinutos, 0);
 
+            // Saldo
             const elSaldo = document.getElementById('dash-saldo');
             elSaldo.textContent = minsToTime(total);
-            elSaldo.className = total >= 0 ? "text-3xl font-bold text-brand-navy mt-1" : "text-3xl font-bold text-red-600 mt-1";
+            elSaldo.className = total >= 0 ? "text-4xl font-bold my-2 text-white" : "text-4xl font-bold my-2 text-red-200";
             
-            const elStatus = document.getElementById('dash-status-indicator');
-            elStatus.textContent = total >= 0 ? "Saldo Positivo" : "Saldo Negativo";
-            elStatus.className = total >= 0 ? "text-xs font-medium text-green-600" : "text-xs font-medium text-red-600";
+            const elStatus = document.getElementById('dash-status');
+            elStatus.textContent = total >= 0 ? "Saldo Positivo" : "Saldo Devedor";
+            elStatus.className = total >= 0 ? "inline-block px-2 py-1 rounded bg-green-500 text-white text-[10px] font-bold uppercase shadow-sm" : "inline-block px-2 py-1 rounded bg-red-500 text-white text-[10px] font-bold uppercase shadow-sm";
 
-            const tlContainer = document.getElementById('timeline-container');
-            tlContainer.innerHTML = '';
+            // Timeline
+            const tl = document.getElementById('timeline-body');
+            tl.innerHTML = '';
             
-            if(myData.length === 0) {
-                tlContainer.innerHTML = '<div class="text-center py-6 text-gray-400 text-xs italic">Sem registos.</div>';
+            if(list.length === 0) {
+                tl.innerHTML = '<div class="p-8 text-center text-gray-400 text-sm">Nenhum registro encontrado.</div>';
                 return;
             }
 
-            myData.forEach(d => {
-                const isWork = d.tipo === 'trabalho';
-                const cls = isWork ? 'work' : 'abono';
-                const color = d.saldoMinutos >= 0 ? 'text-brand-navy' : 'text-red-500';
-                
-                tlContainer.innerHTML += `
-                    <div class="timeline-clean-item ${cls}">
-                        <div class="timeline-clean-dot"></div>
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">${new Date(d.data).toLocaleDateString('pt-PT')}</span>
-                                <h4 class="font-bold text-gray-700 text-sm">${isWork ? 'Jornada Extra' : 'Abono'}</h4>
-                                <p class="text-xs text-gray-500 mt-0.5 truncate w-32 md:w-auto">${d.obs || '-'}</p>
-                            </div>
-                            <span class="font-mono font-bold text-sm ${color}">${minsToTime(d.saldoMinutos)}</span>
+            list.forEach(j => {
+                const isWork = j.tipo === 'trabalho';
+                const colorClass = j.saldoMinutos >= 0 ? 'text-brand-navy' : 'text-red-500';
+                tl.innerHTML += `
+                    <div class="timeline-row">
+                        <div class="mr-4 text-center min-w-[50px]">
+                            <span class="block text-xs font-bold text-gray-400 uppercase">${new Date(j.data).toLocaleDateString('pt-PT', {day:'2-digit', month:'short'})}</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-bold text-gray-700">${isWork ? 'Jornada Extra' : 'Abono/Ajuste'}</h4>
+                            <p class="text-xs text-gray-500 italic truncate max-w-[150px] md:max-w-xs">${j.obs || ''}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono font-bold text-sm ${colorClass}">${minsToTime(j.saldoMinutos)}</span>
                         </div>
                     </div>
                 `;
             });
         }
 
+        function renderSolicitacoes() {
+            const list = state.solicitacoes.filter(s => s.nome === state.selectedProfile);
+            const el = document.getElementById('user-solicitacoes-list');
+            el.innerHTML = '';
+            
+            if(list.length === 0) { el.innerHTML = '<div class="text-center py-4 text-gray-400 text-xs">Sem pedidos.</div>'; return; }
+
+            list.forEach(s => {
+                let badge = s.status === 'approved' ? 'bg-green-100 text-green-800' : s.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800';
+                el.innerHTML += `
+                    <div class="p-3 bg-white border border-gray-100 rounded shadow-sm flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-bold text-gray-700 block">${new Date(s.data).toLocaleDateString('pt-PT')}</span>
+                            <span class="text-[10px] text-gray-500">${s.horasSolicitadas}h - "${s.motivo}"</span>
+                        </div>
+                        <span class="${badge} px-2 py-1 rounded text-[10px] font-bold uppercase">${s.status}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function renderApprovals() {
+            const list = state.solicitacoes.filter(s => s.status === 'pending');
+            const el = document.getElementById('lista-aprovacoes');
+            el.innerHTML = '';
+            
+            if(list.length === 0) { el.innerHTML = '<div class="text-center py-6 text-gray-400 text-sm">Tudo limpo! Nenhuma pendência.</div>'; return; }
+
+            list.forEach(r => {
+                el.innerHTML += `
+                    <div class="bg-white border border-gray-200 p-4 rounded shadow-sm">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-sm text-brand-navy">${r.nome}</h4>
+                            <span class="bg-gray-100 text-gray-600 font-mono text-xs px-2 py-1 rounded font-bold">${r.horasSolicitadas}h</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3 italic bg-gray-50 p-2 rounded">"${r.motivo}"</p>
+                        <div class="flex gap-2">
+                            <button onclick="processApproval('${r.id}', true)" class="flex-1 bg-green-600 text-white py-2 rounded text-xs font-bold hover:bg-green-700 ${!state.isManager?'opacity-50':''}" ${!state.isManager?'disabled':''}>APROVAR</button>
+                            <button onclick="processApproval('${r.id}', false)" class="flex-1 border border-red-200 text-red-600 py-2 rounded text-xs font-bold hover:bg-red-50 ${!state.isManager?'opacity-50':''}" ${!state.isManager?'disabled':''}>REJEITAR</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.renderRanking = () => {
+            const totals = {};
+            state.jornadas.forEach(j => totals[j.nome] = (totals[j.nome]||0) + j.saldoMinutos);
+            const sorted = Object.keys(totals).map(k=>({n:k, s:totals[k]})).sort((a,b)=>b.s-a.s);
+            const el = document.getElementById('ranking-body');
+            el.innerHTML = '';
+            sorted.forEach((r,i) => {
+                el.innerHTML += `
+                    <tr class="border-b last:border-0 hover:bg-gray-50">
+                        <td class="py-3 px-4 text-xs font-bold text-gray-400">#${i+1}</td>
+                        <td class="py-3 px-4 font-medium text-gray-700">${r.n}</td>
+                        <td class="py-3 px-4 text-right font-mono font-bold ${r.s>=0?'text-brand-navy':'text-red-500'}">${minsToTime(r.s)}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // --- Actions ---
         window.handleRegistro = async (e) => {
             e.preventDefault();
             const form = {
@@ -634,45 +738,28 @@
 
             const minIn = timeToMins(form.in);
             const minOut = timeToMins(form.out);
-            
             if(minOut <= minIn) return showToast('Saída deve ser após entrada', 'error');
 
-            const dayOfWeek = new Date(form.data).getDay(); // 0 = Dom, 6 = Sáb
-            const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
-            
+            const day = new Date(form.data).getDay();
+            const isWeekend = (day === 0 || day === 6);
             let bal = 0;
             let obs = form.obs;
 
-            if (isWeekend) {
-                // Fim de semana: Tudo conta
+            if(isWeekend) {
                 bal = minOut - minIn;
-                if (dayOfWeek === 0) {
+                if(day === 0) {
                     const bonus = Math.round((bal/60)*24);
                     bal += bonus;
-                    obs += ` (+${bonus}min Domingo)`;
+                    obs += ` (+${bonus}min Dom)`;
                 }
             } else {
-                // Dia de Semana: Regra 07:00 (420) - 17:00 (1020)
-                const shiftStart = 420; // 07:00
-                const shiftEnd = 1020;  // 17:00
+                const start = 420; // 07:00
+                const end = 1020;  // 17:00
+                const before = Math.max(0, start - minIn);
+                const after = Math.max(0, minOut - end);
+                bal = before + after;
                 
-                // Horas antes das 07:00
-                const extraBefore = Math.max(0, shiftStart - minIn);
-                // Horas depois das 17:00
-                const extraAfter = Math.max(0, minOut - shiftEnd);
-                
-                bal = extraBefore + extraAfter;
-                
-                // Ajuste se o usuário trabalhou "menos" que o extra esperado não se aplica aqui, pois só conta positivo
-                // Mas, e se o usuário registrou 08:00 as 18:00?
-                // Before: max(0, 420-480) = 0.
-                // After: max(0, 1080-1020) = 60 (1h).
-                // Total = 1h. Correto.
-                
-                if (bal === 0) {
-                    showToast("Horário dentro do expediente normal (07-17h). Nada a registar.", "error");
-                    return;
-                }
+                if(bal === 0) return showToast("Horário dentro do expediente normal (07-17).", "error");
             }
 
             try {
@@ -680,11 +767,10 @@
                     nome: form.nome, data: form.data, entrada: form.in, saida: form.out, area: form.area,
                     obs, tipo: 'trabalho', saldoMinutos: bal, timestamp: serverTimestamp()
                 });
-                showToast("Horas extras registadas com sucesso.");
+                showToast("Registrado com sucesso!");
                 e.target.reset();
-                document.getElementById('reg-nome').value = state.selectedProfile;
                 switchTab('dashboard');
-            } catch(err) { showToast(err.message, 'error'); }
+            } catch(e) { showToast(e.message, 'error'); }
         };
 
         window.handleSolicitacao = async (e) => {
@@ -699,8 +785,7 @@
                 });
                 showToast("Solicitação enviada.");
                 e.target.reset();
-                document.getElementById('abono-nome').value = state.selectedProfile;
-            } catch(err) { showToast(err.message, 'error'); }
+            } catch(e) { showToast(e.message, 'error'); }
         };
 
         window.processApproval = async (id, approved) => {
@@ -718,94 +803,16 @@
             } catch(e) { console.error(e); }
         };
 
-        function renderSolicitacoes() {
-            const list = state.solicitacoes.filter(s => s.nome === state.selectedProfile);
-            const el = document.getElementById('user-solicitacoes-list');
-            el.innerHTML = '';
-            
-            if(list.length === 0) {
-                el.innerHTML = '<div class="text-center py-4 text-gray-400 text-xs">Sem pedidos.</div>';
-                return;
-            }
-
-            list.forEach(s => {
-                const st = s.status;
-                const badge = st==='approved'?'bg-green-100 text-green-800':st==='rejected'?'bg-red-100 text-red-800':'bg-yellow-100 text-yellow-800';
-                
-                el.innerHTML += `
-                    <div class="p-3 border border-gray-100 rounded bg-gray-50 mb-2 flex justify-between items-center text-sm">
-                        <div>
-                            <span class="font-bold text-gray-700 block">${new Date(s.data).toLocaleDateString('pt-PT')} <span class="font-normal text-gray-500">(${s.horasSolicitadas}h)</span></span>
-                            <p class="text-xs text-gray-500 italic mt-0.5 w-32 truncate">"${s.motivo}"</p>
-                        </div>
-                        <span class="${badge} px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide">${st}</span>
-                    </div>
-                `;
-            });
-        }
-
-        function renderApprovals() {
-            const list = state.solicitacoes.filter(s => s.status === 'pending');
-            const el = document.getElementById('lista-aprovacoes');
-            el.innerHTML = '';
-            
-            if(list.length === 0) { el.innerHTML = '<div class="text-center py-6 text-gray-400 text-sm">Nenhuma pendência.</div>'; return; }
-
-            list.forEach(r => {
-                el.innerHTML += `
-                    <div class="bg-white border border-gray-200 p-4 rounded mb-3">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-sm text-brand-navy">${r.nome}</h4>
-                            <span class="bg-gray-100 text-gray-600 font-mono text-xs px-2 py-1 rounded font-bold">${r.horasSolicitadas}h</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-3 italic">"${r.motivo}"</p>
-                        <div class="flex gap-2">
-                            <button onclick="processApproval('${r.id}', true)" class="flex-1 bg-green-600 text-white py-1.5 rounded text-xs font-bold hover:bg-green-700 ${!state.isManager?'opacity-50':''}" ${!state.isManager?'disabled':''}>APROVAR</button>
-                            <button onclick="processApproval('${r.id}', false)" class="flex-1 border border-red-200 text-red-600 py-1.5 rounded text-xs font-bold hover:bg-red-50 ${!state.isManager?'opacity-50':''}" ${!state.isManager?'disabled':''}>REJEITAR</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        window.renderRanking = () => {
-            const totals = {};
-            state.jornadas.forEach(j => totals[j.nome] = (totals[j.nome]||0) + j.saldoMinutos);
-            const sorted = Object.keys(totals).map(k=>({n:k, s:totals[k]})).sort((a,b)=>b.s-a.s);
-            
-            const el = document.getElementById('ranking-body');
-            el.innerHTML = '';
-            sorted.forEach((r,i) => {
-                el.innerHTML += `
-                    <tr class="border-b last:border-0 hover:bg-gray-50">
-                        <td class="py-3 px-4 text-xs font-bold text-gray-400">#${i+1}</td>
-                        <td class="py-3 px-4 font-medium text-gray-700">${r.n}</td>
-                        <td class="py-3 px-4 text-right font-mono font-bold ${r.s>=0?'text-brand-navy':'text-red-500'}">${minsToTime(r.s)}</td>
-                    </tr>
-                `;
-            });
-        }
-
+        // --- Navigation ---
         window.switchTab = (id) => {
             ['dashboard','registro','solicitacoes','gestao'].forEach(v => {
                 document.getElementById(`view-${v}`).classList.add('hidden');
-                const desk = document.getElementById(`desk-${v}`);
-                if(desk) desk.classList.remove('active');
-                const mob = document.getElementById(`mob-${v}`);
-                if(mob) mob.classList.remove('active');
+                document.getElementById(`nav-${v}`).classList.remove('active');
             });
             document.getElementById(`view-${id}`).classList.remove('hidden');
+            document.getElementById(`nav-${id}`).classList.add('active');
             
-            document.getElementById(`desk-${id}`)?.classList.add('active');
-            document.getElementById(`mob-${id}`)?.classList.add('active');
-
-            // Breadcrumb Title
-            const titles = {
-                dashboard: 'Dashboard', registro: 'Registar Ponto', solicitacoes: 'Solicitações', gestao: 'Gestão'
-            };
-            document.getElementById('page-title').textContent = titles[id] || 'Home';
-            
-            if(id==='gestao') { renderApprovals(); window.renderRanking(); }
+            if(id === 'gestao') { renderApprovals(); renderRanking(); }
         };
 
         init();
