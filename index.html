@@ -31,9 +31,8 @@
                     fontFamily: {
                         sans: ['Roboto', 'sans-serif'],
                     },
-                    boxShadow: {
-                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-                        'nav': '0 -2px 10px rgba(0,0,0,0.03)'
+                    fontSize: {
+                        'xs-mobile': '0.7rem', // Fonte menor para inputs mobile
                     }
                 }
             }
@@ -69,11 +68,17 @@
         /* Inputs */
         .input-field {
             background-color: #F9FAFB; border: 1px solid #D1D5DB; border-radius: 6px;
-            padding: 10px 14px; width: 100%; outline: none; transition: border-color 0.2s;
+            padding: 10px 12px; width: 100%; outline: none; transition: border-color 0.2s;
+            font-size: 0.9rem; /* Levemente menor para caber */
         }
         .input-field:focus { border-color: #004080; background-color: white; }
 
-        /* Navegação Híbrida (Tabs Desktop / Bottom Mobile) */
+        /* Estilo específico para input de hora manual */
+        .input-time {
+            text-align: center; font-family: monospace; font-weight: 700; letter-spacing: 1px; font-size: 1.1rem;
+        }
+
+        /* Navegação */
         .nav-container {
             position: fixed; bottom: 0; left: 0; right: 0; background: white;
             border-top: 1px solid #E5E7EB; display: flex; justify-content: space-around;
@@ -119,14 +124,12 @@
         @media (min-width: 768px) { main { padding-bottom: 20px; } }
 
         /* Timeline */
-        .timeline-row {
-            display: flex; align-items: center; padding: 16px; border-bottom: 1px solid #F3F4F6;
-        }
+        .timeline-row { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid #F3F4F6; }
         .timeline-row:last-child { border-bottom: none; }
         
         /* Overlays */
         #loading-overlay {
-            position: fixed; inset: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px);
+            position: fixed; inset: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(4px);
             z-index: 100; display: flex; justify-content: center; align-items: center; flex-direction: column;
         }
         #toast-container { position: fixed; top: 20px; right: 20px; z-index: 110; display: flex; flex-direction: column; gap: 10px; }
@@ -144,6 +147,7 @@
     <div id="loading-overlay">
         <div class="w-12 h-12 border-4 border-brand-bg border-t-brand-navy rounded-full animate-spin mb-4"></div>
         <p class="text-brand-navy font-bold tracking-wider text-sm uppercase">Banco de Horas Evereste</p>
+        <p class="text-xs text-gray-400 mt-2" id="loading-text">Conectando...</p>
     </div>
 
     <!-- Toast Notifications -->
@@ -301,33 +305,36 @@
                         <form onsubmit="handleRegistro(event)" class="p-6 space-y-6">
                             <input type="text" id="reg-nome" class="hidden">
 
-                            <div class="grid grid-cols-2 gap-4">
+                            <!-- GRID RESPONSIVO (2 Colunas no Mobile) -->
+                            <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Data</label>
-                                    <input type="date" id="reg-data" required class="input-field">
+                                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Data</label>
+                                    <input type="date" id="reg-data" required class="input-field text-sm">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Atividade</label>
-                                    <select id="reg-area" class="input-field bg-white">
+                                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Atividade</label>
+                                    <select id="reg-area" class="input-field bg-white text-xs truncate pr-6">
                                         <option value="TI">Cobertura Audiovisual</option>
-                                        <option value="Administrativo">Apoio Cerimonial e Eventos</option>
-                                        <option value="Projetos">Postagens Redes e Portal</option>
-                                        <option value="Engenharia">Criação de Material audiovisual</option>
+                                        <option value="Administrativo">Apoio Cerimonial</option>
+                                        <option value="Projetos">Postagens Redes</option>
+                                        <option value="Engenharia">Criação Material</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="bg-gray-50 p-4 rounded border border-gray-200">
-                                <p class="text-center text-[10px] font-bold text-brand-navy uppercase mb-3">Horário Realizado</p>
-                                <div class="flex items-center gap-4">
+                                <p class="text-center text-[10px] font-bold text-brand-navy uppercase mb-3">Horário Realizado (HH:MM)</p>
+                                <div class="flex items-center gap-3">
                                     <div class="flex-1">
                                         <label class="block text-[10px] text-gray-400 font-bold mb-1 text-center">Início</label>
-                                        <input type="time" id="reg-entrada" required class="input-field text-center font-mono font-bold text-lg">
+                                        <!-- INPUT MANUAL DE HORA -->
+                                        <input type="tel" id="reg-entrada" required class="input-field input-time" placeholder="00:00" maxlength="5" oninput="maskTime(this)">
                                     </div>
                                     <i class="fa-solid fa-arrow-right text-gray-300 mt-4"></i>
                                     <div class="flex-1">
                                         <label class="block text-[10px] text-gray-400 font-bold mb-1 text-center">Fim</label>
-                                        <input type="time" id="reg-saida" required class="input-field text-center font-mono font-bold text-lg">
+                                        <!-- INPUT MANUAL DE HORA -->
+                                        <input type="tel" id="reg-saida" required class="input-field input-time" placeholder="00:00" maxlength="5" oninput="maskTime(this)">
                                     </div>
                                 </div>
                             </div>
@@ -352,14 +359,16 @@
                             <form onsubmit="handleSolicitacao(event)" class="space-y-4">
                                 <input type="text" id="abono-nome" class="hidden">
                                 
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Data</label>
-                                    <input type="date" id="abono-data" required class="input-field">
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Total de Horas</label>
-                                    <input type="time" id="abono-horas" required class="input-field">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Data</label>
+                                        <input type="date" id="abono-data" required class="input-field">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Horas</label>
+                                        <input type="tel" id="abono-horas" required class="input-field input-time" placeholder="00:00" maxlength="5" oninput="maskTime(this)">
+                                    </div>
                                 </div>
 
                                 <div>
@@ -433,8 +442,7 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Configuração de Fallback com as Chaves do Usuário
-        const fallbackConfig = {
+        const firebaseConfig = {
           apiKey: "AIzaSyAOJ0ca2hpVmFX61aq0asYliQld7t1enNE",
           authDomain: "banco-de-horas-846f7.firebaseapp.com",
           projectId: "banco-de-horas-846f7",
@@ -444,19 +452,10 @@
         };
 
         // Lógica de Seleção de Configuração
-        let firebaseConfig;
-        if (typeof __firebase_config !== 'undefined') {
-            firebaseConfig = JSON.parse(__firebase_config);
-        } else {
-            firebaseConfig = fallbackConfig;
-        }
-
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        
-        // AppId preferencialmente do ambiente, senão usa um padrão
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'banco-horas-evereste-v1';
+        const appId = 'banco-horas-evereste-v1';
 
         const state = {
             currentUser: null,
@@ -479,36 +478,49 @@
             setTimeout(() => toast.remove(), 3500);
         };
 
+        // Máscara de Hora (HH:MM)
+        window.maskTime = (input) => {
+            let v = input.value.replace(/\D/g, ''); // Remove não números
+            if (v.length > 4) v = v.slice(0, 4); // Limita a 4 dígitos
+            if (v.length > 2) {
+                input.value = `${v.slice(0, 2)}:${v.slice(2)}`;
+            } else {
+                input.value = v;
+            }
+        };
+
         function minsToTime(m) {
             const abs = Math.abs(m);
             return `${m < 0 ? '-' : ''}${String(Math.floor(abs/60)).padStart(2,'0')}:${String(abs%60).padStart(2,'0')}`;
         }
-        function timeToMins(t) { const [h,m] = t.split(':').map(Number); return h*60+m; }
+        
+        function timeToMins(t) { 
+            if(!t || !t.includes(':')) return 0;
+            const [h,m] = t.split(':').map(Number); 
+            return h*60+m; 
+        }
 
         // --- Core ---
         async function init() {
+            // Timeout de Segurança para remover carregamento se Auth travar
+            setTimeout(() => {
+                const loader = document.getElementById('loading-overlay');
+                if (loader && loader.style.display !== 'none' && !state.currentUser) {
+                    loader.style.display = 'none';
+                    document.getElementById('login-screen').classList.remove('hidden');
+                    console.log("Forced loader removal due to timeout");
+                }
+            }, 3000); // 3 segundos
+
             try {
-                let authenticated = false;
-
-                // Tenta autenticação via token injetado (Ambiente Imersivo)
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    try {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                        authenticated = true;
-                    } catch (e) {
-                        console.warn("Token mismatch, fallback para anônimo.");
-                    }
-                }
-
-                // Se não autenticou via token, ou se o token falhou, usa anônimo
-                if (!authenticated) {
-                    await signInAnonymously(auth);
-                }
+                // Tenta autenticação
+                await signInAnonymously(auth);
 
                 onAuthStateChanged(auth, user => {
                     document.getElementById('loading-overlay').style.display = 'none';
                     if(user) {
                         state.currentUser = user;
+                        // Mostrar tela de login primeiro
                         document.getElementById('login-screen').classList.remove('hidden');
                     } else {
                         document.getElementById('login-screen').classList.remove('hidden');
@@ -517,9 +529,8 @@
             } catch(e) { 
                 console.error(e);
                 document.getElementById('loading-overlay').style.display = 'none';
-                showToast("Erro crítico de autenticação. Recarregue.", "error");
-                // Fallback UI
-                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('login-screen').classList.remove('hidden'); // Fallback
+                showToast("Erro de conexão. Modo offline.", "error");
             }
 
             document.getElementById('global-user-select').addEventListener('change', (e) => {
@@ -543,12 +554,13 @@
             if(pass.length < 3) return showToast("Senha inválida", "error");
 
             document.getElementById('loading-overlay').style.display = 'flex';
+            document.getElementById('loading-text').textContent = "Autenticando...";
 
             // Simulação de Identificação
             const select = document.getElementById('global-user-select');
             if(email.includes('bruno')) { select.value = 'Bruno Diogo'; }
             else if(email.includes('vinicius')) { select.value = 'Vinicius Sena'; }
-            else { select.value = 'Vinicius Sena'; } // Default
+            else { select.value = 'Vinicius Sena'; } 
 
             state.selectedProfile = select.value;
             
